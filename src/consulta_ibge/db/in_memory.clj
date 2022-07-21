@@ -7,5 +7,5 @@
 (def data {:estado [out.state/State]})
 
 (def data (c/fifo-cache-factory {}))
-(c/through-cache data :states (constantly (c.states/find-all-state)))
-(c/through-cache data :cities (constantly (c.cities/find-all-cities)))
+(c/through-cache data :states (constantly (c.states/find-all-state!)))
+(c/through-cache data :cities (constantly (c.cities/find-all-cities!)))

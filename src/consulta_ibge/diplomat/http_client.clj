@@ -1,4 +1,4 @@
-(ns consulta-ibge.controllers.request
+(ns consulta-ibge.diplomat.http-client
   (:require [clj-http.client :as client]
             [cheshire.core :as cheshire]))
 

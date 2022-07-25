@@ -15,3 +15,10 @@
          (filter #(= city-name-upper-case (upper-case (:nome %))))
          (first)
          (adapters.projection/city->projection))))
+
+(s/defn get-all-cities :- [out.projection/Projection]
+  "Find all cities and transform to Projection"
+  []
+  (let [cities (:cities @db.in-memory/data)]
+    (-> cities
+         (adapters.projection/cities->projections))))

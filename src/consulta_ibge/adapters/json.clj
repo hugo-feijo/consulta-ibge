@@ -1,4 +1,4 @@
-(ns consulta-ibge.logic.json
+(ns consulta-ibge.adapters.json
   (:require [cheshire.core :as cheshire]
             [ring.util.response :as ring-resp]))
 

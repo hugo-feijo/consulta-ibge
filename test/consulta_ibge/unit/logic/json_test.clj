@@ -1,6 +1,6 @@
 (ns consulta-ibge.unit.logic.json-test
   (:require [clojure.test :refer :all]
-            [consulta-ibge.logic.json :refer :all]))
+            [consulta-ibge.adapters.json :refer :all]))
 
 (deftest object->json-string-test
   (testing "That passing a valid vector return a valid json"

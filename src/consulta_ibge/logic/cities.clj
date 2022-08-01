@@ -1,24 +1,12 @@
 (ns consulta-ibge.logic.cities
   (:require [schema.core :as s]
-            [consulta-ibge.db.in-memory :as db.in-memory]
-            [consulta-ibge.adapters.projection :as adapters.projection]
-            [consulta-ibge.wire.out.projection :as out.projection]
+            [consulta-ibge.wire.out.city :as out.city]
             [clojure.string :refer (upper-case)]))
 
-(s/defn get-city-by-name :- out.projection/Projection
-  "Filter cities name (cas insensitive) in in-memory db by parameter provide,
-  and return dados_formatado"
-  [city-name]
-  (let [cities (:cities @db.in-memory/data)
-        city-name-upper-case (upper-case city-name)]
+(s/defn get-city-by-name :- out.city/City
+  "Filter cities by name (case insensitive), and return wire.out.City"
+  [city-name cities]
+  (let [city-name-upper-case (upper-case city-name)]
     (->> cities
          (filter #(= city-name-upper-case (upper-case (:nome %))))
-         (first)
-         (adapters.projection/city->projection))))
-
-(s/defn get-all-cities :- [out.projection/Projection]
-  "Find all cities and transform to Projection"
-  []
-  (let [cities (:cities @db.in-memory/data)]
-    (-> cities
-         (adapters.projection/cities->projections))))
+         (first))))

@@ -2,18 +2,18 @@
   (:require [io.pedestal.http :as http]
             [io.pedestal.http.body-params :as body-params]
             [ring.util.response :as ring-resp]
-            [consulta-ibge.logic.cities :as l.cities]
-            [consulta-ibge.logic.json :as adapters.json]))
+            [consulta-ibge.controllers.cities :as c.cities]
+            [consulta-ibge.adapters.json :as adapters.json]))
 
 (defn get-city-by-name
   [request]
   (if-let [city-name (get-in request [:query-params :nomeCidade])]
-    (adapters.json/response-json-content (l.cities/get-city-by-name city-name))
+    (adapters.json/response-json-content (c.cities/get-city-by-name city-name))
     (ring-resp/bad-request "Provide query nomeCidade")))
 
 (defn get-all-cities
-  [request]
-  (adapters.json/response-json-content (l.cities/get-all-cities)))
+  [_]
+  (adapters.json/response-json-content (c.cities/get-all-cities)))
 
 (def common-interceptors [(body-params/body-params) http/html-body])
 

@@ -12,8 +12,8 @@
 
 (defn response-json-content
   "Get a response body and transform to json content type"
-  [response-body]
+  [response-body response-status]
   (-> response-body
       (object->json-string)
-      (ring-resp/response)
+      (response-status)
       (add-header-content-type-json)))

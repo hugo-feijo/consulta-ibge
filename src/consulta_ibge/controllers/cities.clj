@@ -18,10 +18,9 @@
 
 (s/defn get-city-by-name :- out.projection/Projection
   [city-name]
-  (if-let [city (logic.cities/get-city-by-name city-name (:cities @data))]
+  (let [city (logic.cities/get-city-by-name city-name (:cities @data))]
     (-> city
-        (adapters.projection/city->projection))
-    {:error-message "City not found"}))
+        (adapters.projection/city->projection))))
 
 
 (s/defn get-all-cities :- [out.projection/Projection]

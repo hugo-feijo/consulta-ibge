@@ -8,12 +8,15 @@
 (defn get-city-by-name
   [request]
   (if-let [city-name (get-in request [:query-params :nomeCidade])]
-    (adapters.json/response-json-content (c.cities/get-city-by-name city-name))
+    (try
+      (adapters.json/response-json-content (c.cities/get-city-by-name city-name) ring-resp/response)
+      (catch clojure.lang.ExceptionInfo e
+        (adapters.json/response-json-content (ex-data e) ring-resp/not-found)))
     (ring-resp/bad-request "Provide query nomeCidade")))
 
 (defn get-all-cities
   [_]
-  (adapters.json/response-json-content (c.cities/get-all-cities)))
+  (adapters.json/response-json-content (c.cities/get-all-cities) ring-resp/response))
 
 (def common-interceptors [(body-params/body-params) http/html-body])
 
